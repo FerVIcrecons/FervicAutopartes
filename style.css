@@ -205,10 +205,10 @@ body
     margin-bottom: 15px; 
 }
 
-.letrero-neon-flujo { 
-    display: flex; 
-    width: max-content; 
-    animation: marquee 2s linear infinite; 
+.letrero-neon-flujo {
+    display: flex;
+    width: max-content;
+    animation: marquee 4s linear infinite !important;
 }
 
 .letrero-neon-flujo span {
