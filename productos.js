@@ -19,7 +19,7 @@ const catalogoProductos = {
         nombre: "35MT Delco Remy",
         precio: 3200,
         marca: "DELCO REMY",
-        enStock: true,
+        enStock: false,
         fotos: ["img/IMGcatalogo/1 35MT.png", "img/IMGcatalogo/2 35MT.png", "img/IMGcatalogo/3 35MT.png", "img/IMGcatalogo/4 35MT.png"],
         specs: { "NÚMERO DE DIENTES": "11", "GIRO": "CW DERECHO - HORARIO", "VOLTS": "12V", "DATOS EXTRAS": "CAMPANA FIJA", "SERIE": "35MT", "SISTEMA OEM": "DELCO", "LESTER": "---" }
     },
@@ -51,7 +51,7 @@ const catalogoProductos = {
         nombre: "41MT Delco Remy",
         precio: 3700,
         marca: "DELCO REMY",
-        enStock: true,
+        enStock: false,
         fotos: ["img/IMGcatalogo/4 41MT.png", "img/IMGcatalogo/2 41MT.png", "img/IMGcatalogo/3 41MT.png", "img/IMGcatalogo/1 41MT.png", "img/IMGcatalogo/5 41MT.png"],
         specs: { "NÚMERO DE DIENTES": "11", "GIRO": "CW DERECHO - HORARIO", "VOLTS": "12V", "DATOS EXTRAS": "Reparto", "SERIE": "DIRECT DRIVE", "SISTEMA OEM": "DELCO", "LESTER": "---" }
     },
@@ -59,7 +59,7 @@ const catalogoProductos = {
         nombre: "MARCHA PARA 29MT FORD",
         precio: 3200,
         marca: "FORD",
-        enStock: false,
+        enStock: true,
         fotos: ["img/IMGcatalogo/1 29MT.png"],
         specs: { "NÚMERO DE DIENTES": "10", "GIRO": "CW DERECHO - HORARIO", "VOLTS": "12V", "DATOS EXTRAS": "3.3 Kw", "SERIE": "29MT OSGR", "SISTEMA OEM": "DELCO", "LESTER": "---" }
     },
@@ -83,7 +83,7 @@ const catalogoProductos = {
         nombre: "37MT Delco Remy",
         precio: 3400,
         marca: "DELCO REMY",
-        enStock: true,
+        enStock: false,
         fotos: ["img/IMGcatalogo/5 37MT.png", "img/IMGcatalogo/2 37MT.png", "img/IMGcatalogo/3 37MT.png", "img/IMGcatalogo/1 37MT.png", "img/IMGcatalogo/4 37MT.png"],
         specs: { "NÚMERO DE DIENTES": "12", "GIRO": "CW DERECHO - HORARIO", "VOLTS": "12V", "DATOS EXTRAS": "BARRENO 1/2\"", "SERIE": "37MT ( DIRECT DRIVE )", "SISTEMA OEM": "DELCO", "LESTER": "---" }
     },
@@ -91,7 +91,7 @@ const catalogoProductos = {
         nombre: "MARCHA PARA STERLING SISTEMA DELCO 38MT",
         precio: 3200,
         marca: "DELCO",
-        enStock: true,
+        enStock: false,
         fotos: ["img/IMGcatalogo/1 28MT.png", "img/IMGcatalogo/2 28MT.png", "img/IMGcatalogo/3 28MT.png", "img/IMGcatalogo/4 28MT.png"],
         specs: { "NÚMERO DE DIENTES": "12", "GIRO": "CW DERECHO-HORARIO", "VOLTS": "12V", "DATOS EXTRAS": "4.6 KW", "SERIE": "38MT", "SISTEMA OEM": "DELCO", "LESTER": "6808" }
     },
