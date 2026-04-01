@@ -1,144 +1,174 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Enlaces - FerVic Reconstructora</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        /* Ajustes específicos para el Linktree de FerVic */
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #f4f7fa;
+            font-family: sans-serif;
+        }
+
+        .grid-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: radial-gradient(#1a365d 1px, transparent 1px);
+            background-size: 20px 20px;
+            opacity: 0.1;
+            z-index: -1;
+            pointer-events: none;
+        }
+
         .contenedor-linktree {
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 40px 20px;
+            padding: 60px 20px;
             min-height: 100vh;
             text-align: center;
         }
 
         .foto-perfil {
-            width: 100px;
-            height: 100px;
+            width: 120px;
+            height: 120px;
             border-radius: 50%;
-            border: 2px solid white;
-            margin-bottom: 10px;
-            object-fit: cover;
-            background-color: #111;
+            border: 4px solid white;
+            margin-bottom: 20px;
+            background-color: white;
             display: flex;
             justify-content: center;
             align-items: center;
-            color: white;
-            font-weight: bold;
-            font-size: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .foto-perfil img {
+            width: 80%;
+            height: auto;
         }
 
         .nombre-usuario {
-            font-size: 22px;
+            font-size: 26px;
             font-weight: bold;
             margin-bottom: 5px;
-            letter-spacing: 1px;
-            color: white;
+            color: #1a365d;
         }
 
         .slogan-linktree {
-            color: #888;
+            color: #555;
             font-size: 14px;
-            margin-bottom: 30px;
+            margin-bottom: 40px;
             font-style: italic;
         }
 
         .lista-links {
             width: 100%;
-            max-width: 400px;
+            max-width: 450px;
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 20px;
         }
 
         .boton-link {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
-            background-color: white;
-            color: black !important;
+            gap: 15px;
+            background-color: #1a365d;
+            color: white !important;
             text-decoration: none;
-            padding: 16px;
+            padding: 18px;
             font-weight: bold;
-            border-radius: 50px; 
+            border-radius: 8px; 
             transition: 0.3s;
             text-transform: uppercase;
-            font-size: 13px;
+            font-size: 14px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
 
         .boton-link:hover {
-            transform: scale(1.05);
-            background-color: #00f7ff; /* Brillo cian al pasar el mouse */
+            transform: translateY(-3px);
+            background-color: #2a4d7d;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.2);
         }
 
         .redes-sociales-iconos {
-            margin-top: 40px;
+            margin-top: 50px;
             display: flex;
-            gap: 25px;
+            gap: 30px;
         }
 
         .redes-sociales-iconos a {
             text-decoration: none;
-            color: white;
+            color: #1a365d;
             transition: 0.3s;
-        }
-
-        .redes-sociales-iconos span {
-            font-size: 32px;
+            font-size: 30px;
         }
 
         .redes-sociales-iconos a:hover {
-            color: #00f7ff;
+            color: #ff4747;
+            transform: scale(1.2);
+        }
+
+        .footer-texto {
+            margin-top: 60px;
+            color: #1a365d;
+            font-size: 12px;
+            opacity: 0.8;
+            font-weight: bold;
         }
     </style>
 </head>
-<body class="fondo-puntos">
+<body>
+    <div class="grid-overlay"></div>
+
     <div class="contenedor-linktree">
-        <div class="foto-perfil">FV</div>
+        <div class="foto-perfil">
+            <img src="img/FERVIC.png" alt="FerVic Logo">
+        </div>
         
-        <a href="index.html" class="logo-link">
-            <h1 class="nombre-usuario">FerVic Reconstructora</h1>
-        </a>
+        <h1 class="nombre-usuario">FerVic Reconstructora</h1>
         <p class="slogan-linktree">“Potencia confiable desde el primer giro.”</p>
 
         <div class="lista-links">
             <a href="index.html" class="boton-link">
-                <span class="material-icons">shopping_bag</span> Visita nuestra Web
+                <i class="fas fa-globe"></i> Visita nuestra Web
             </a>
 
             <a href="https://wa.me/525611719482" target="_blank" class="boton-link">
-                <span class="material-icons">chat</span> Pedidos por WhatsApp
+                <i class="fab fa-whatsapp"></i> Pedidos por WhatsApp
             </a>
 
             <a href="https://www.facebook.com/share/18Hyxc7uoQ/?mibextid=wwXIfr" target="_blank" class="boton-link">
-                <span class="material-icons">facebook</span> Síguenos en Facebook
+                <i class="fab fa-facebook-f"></i> Síguenos en Facebook
             </a>
 
-            <a href="https://www.instagram.com/fervic_reconstructora?igsh=MTVxbWpyNGtnM3dsdg%3D%3D&utm_source=qr" target="_blank" class="boton-link">
-                <span class="material-icons">camera_alt</span> Instagram
+            <a href="https://www.instagram.com/fervic_autopartes/" target="_blank" class="boton-link">
+                <i class="fab fa-instagram"></i> Instagram Oficial
             </a>
         </div>
 
         <div class="redes-sociales-iconos">
             <a href="https://www.facebook.com/share/18Hyxc7uoQ/?mibextid=wwXIfr" target="_blank">
-                <span class="material-icons">facebook</span>
+                <i class="fab fa-facebook"></i>
             </a>
-            <a href="index.html">
-                <span class="material-icons">language</span>
+            <a href="https://www.instagram.com/fervic_autopartes/" target="_blank">
+                <i class="fab fa-instagram"></i>
             </a>
             <a href="mailto:fervicreco@gmail.com">
-                <span class="material-icons">mail</span>
+                <i class="fas fa-envelope"></i>
             </a>
         </div>
 
-        <p style="margin-top: 50px; color: #444; font-size: 12px;">Hecho por FerVic Reconstructora © 2026</p>
+        <p class="footer-texto">HECHO POR FERVIC RECONSTRUCTORA © 2026</p>
     </div>
 </body>
 </html>
