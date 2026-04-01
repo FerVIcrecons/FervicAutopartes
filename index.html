@@ -129,7 +129,7 @@
             width: 100%;
             height: 85vh;
             min-height: 500px;
-            background-image: url('img/background.webp');
+            background-image: url('img/background.png');
             background-size: cover;
             background-position: center;
             display: flex;
@@ -295,6 +295,59 @@
             .showcase-izquierda, .contenedor-fotos { height: 250px; }
             .contenedor-fotos img { height: 250px; }
         }
+
+        /* --- ESTILOS NUEVOS PARA "QUIÉNES SOMOS" --- */
+        .seccion-nosotros {
+            background-color: rgba(255, 255, 255, 0.05);
+            padding: 40px 20px;
+            margin-top: 40px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            width: 100%;
+        }
+        .contenido-nosotros {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .titulo-nosotros {
+            color: #63b3ed;
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .slogan-destacado-nosotros {
+            color: #ffffff;
+            font-size: 1.2rem;
+            font-weight: bold;
+            font-style: italic;
+            margin-bottom: 25px;
+        }
+        .texto-descripcion-nosotros p {
+            color: #cbd5e0;
+            line-height: 1.7;
+            margin-bottom: 15px;
+            text-align: justify;
+            font-size: 0.95rem;
+        }
+        .cuadro-mision-nosotros {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-left: 4px solid #63b3ed;
+            padding: 20px;
+            margin-top: 30px;
+            text-align: left;
+            border-radius: 4px;
+        }
+        .cuadro-mision-nosotros h3 {
+            color: #ffffff;
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+        }
+        .cuadro-mision-nosotros p {
+            color: #cbd5e0;
+            line-height: 1.5;
+            margin: 0;
+            font-size: 0.9rem;
+        }
     </style>
 </head>
 
@@ -308,7 +361,7 @@
             </button>
             <div class="menu-desplegable">
                 <a href="#catalogo-seccion">CATÁLOGO</a>
-                <a href="#conocenos">ACERCA DE NOSOTROS</a>
+                <a href="#conocenos-detalle">ACERCA DE NOSOTROS</a>
             </div>
         </div>
 
@@ -348,12 +401,12 @@
             <section class="contenedor-grid" id="contenedor-mas-vendidos"></section>
         </div>
 
-       <div class="letrero-neon-marco">
-    <div class="letrero-neon-flujo">
-        <span>PRODUCTOS NUEVOS CADA SEMANA •</span>
-        <span>PRODUCTOS NUEVOS CADA SEMANA •</span>
-    </div>
-</div>
+        <div class="letrero-neon-marco">
+            <div class="letrero-neon-flujo">
+                <span>PRODUCTOS NUEVOS CADA SEMANA •</span>
+                <span>PRODUCTOS NUEVOS CADA SEMANA •</span>
+            </div>
+        </div>
 
         <p class="slogan-cliente">Tu mejor opción en reconstrucción automotriz</p>
 
@@ -403,6 +456,26 @@
                 </div>
             </div>
         </div>
+
+        <section class="seccion-nosotros" id="conocenos-detalle">
+            <div class="contenido-nosotros">
+                <h2 class="titulo-nosotros">¿Quiénes Somos?</h2>
+                <p class="slogan-destacado-nosotros">“Potencia confiable desde el primer giro.”</p>
+                
+                <div class="texto-descripcion-nosotros">
+                    <p>En <strong>FerVic Reconstructora</strong>, somos expertos especialistas en la regeneración y mantenimiento de marchas y alternadores, enfocados en ofrecer soluciones de alto rendimiento a través de nuestra plataforma de ventas online. Nuestra labor va más allá de la reparación; nos apasiona restaurar la vitalidad mecánica de cada vehículo, asegurando que cada componente entregue la potencia original con la que fue diseñado.</p>
+                    
+                    <p>Con años de trayectoria en el sector automotriz, combinamos procesos técnicos de precisión con repuestos de primera calidad. Entendemos que su vehículo es una herramienta esencial, por ello, nuestro compromiso se basa en la rapidez, la transparencia y una garantía sólida que respalda cada uno de nuestros trabajos. Trabajamos con la disciplina necesaria para que usted pueda encender su motor con la certeza de un funcionamiento impecable.</p>
+                    
+                    <p>Nuestra prioridad es clara: que su camino no se detenga y su tranquilidad tampoco. En FerVic, no solo vendemos autopartes; entregamos confianza en cada giro de llave.</p>
+                </div>
+
+                <div class="cuadro-mision-nosotros">
+                    <h3>Nuestra Misión</h3>
+                    <p>Consolidarnos como el referente de excelencia en servicios de reconstrucción automotriz, garantizando estándares superiores de seguridad, calidad y confianza. Nos dedicamos a proveer respuestas ágiles y efectivas que maximicen el rendimiento del parque vehicular de nuestros clientes, fundamentados en la integridad técnica y la satisfacción total.</p>
+                </div>
+            </div>
+        </section>
 
         <div style="text-align: center; margin-top: 50px; opacity: 0.5; font-size: 0.75rem; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px;">
             © 2026 FerVic Reconstructora. Todos los derechos reservados.
