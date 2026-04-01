@@ -208,7 +208,7 @@ body
 .letrero-neon-flujo { 
     display: flex; 
     width: max-content; 
-    animation: marquee 8s linear infinite; 
+    animation: marquee 2s linear infinite; 
 }
 
 .letrero-neon-flujo span {
