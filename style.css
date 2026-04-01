@@ -194,28 +194,30 @@ body
 }
 
 .letrero-neon-marco { 
-    order: 3; 
     width: 100%; 
-    max-width: 500px; 
+    max-width: 600px; 
     border: 2px solid #2B6CB0; 
     background: #ffffff; 
-    padding: 10px 0; 
+    padding: 12px 0; 
     overflow: hidden; 
     border-radius: 5px; 
-    margin-bottom: 15px; 
+    margin: 0 auto 15px auto; 
+    display: flex;
 }
 
-.letrero-neon-flujo {
-    display: flex;
-    width: max-content;
-    animation: marquee 4s linear infinite !important;
+.letrero-neon-flujo { 
+    display: flex; 
+    width: max-content; 
+    animation: marquee 6s linear infinite; 
 }
 
 .letrero-neon-flujo span {
-    font-family: monospace;
+    font-family: 'Courier New', monospace;
     font-weight: bold;
-    color: #b30707; /* <- ESTE ES EL COLOR AZUL ACTUAL */
-    padding-right: 50px;
+    color: #b30707;
+    padding-right: 50px; /* Espacio entre las frases */
+    white-space: nowrap;
+    font-size: 1.1rem;
 }
 
 @keyframes marquee { 
