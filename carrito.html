@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrito - FerVic Reconstructora</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .contenedor-carrito-pro {
+            max-width: 900px;
+            margin: 60px auto;
+            padding: 30px;
+            background: #ffffff; 
+            border: 1px solid #e2e8f0; 
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .titulo-carrito {
+            font-size: 2.5rem;
+            color: #1a365d; 
+            text-transform: uppercase;
+            margin-bottom: 40px;
+            border-left: 5px solid #2b6cb0; 
+            padding-left: 20px;
+        }
+
+        .item-carrito {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px;
+            background: #f8fafc; 
+            border: 1px solid #e2e8f0;
+            margin-bottom: 15px;
+            transition: border-color 0.3s;
+        }
+
+        .item-carrito:hover { border-color: #2b6cb0; }
+
+        .info-prod-car {
+            display: flex;
+            flex-direction: column; /* Cambiado para puro texto */
+            gap: 5px;
+        }
+
+        .nombre-prod-car {
+            font-size: 1.2rem;
+            color: #1e293b; 
+            display: block;
+        }
+
+        .precio-prod-car {
+            color: #2b6cb0; 
+            font-weight: bold;
+            font-family: monospace;
+            font-size: 1.1rem;
+        }
+
+        .badge-agotado-carrito {
+            color: #dc2626;
+            font-size: 0.8rem;
+            font-weight: 900;
+            background: #fee2e2;
+            padding: 2px 8px;
+            border-radius: 4px;
+            margin-left: 10px;
+            vertical-align: middle;
+        }
+
+        .btn-eliminar {
+            background: none;
+            border: 1px solid #cbd5e1;
+            color: #ff4d4d;
+            padding: 8px 15px;
+            cursor: pointer;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            transition: all 0.3s;
+        }
+
+        .btn-eliminar:hover { background: #ff4d4d; color: #fff; }
+
+        .resumen-car {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #e2e8f0;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+
+        .total-fila { font-size: 2rem; color: #1a365d; margin-bottom: 30px; }
+        #total-precio { color: #2b6cb0; }
+
+        .btn-proceder {
+            width: 100%; background: #1a365d; color: #ffffff;
+            border: none; padding: 20px; font-size: 1.4rem;
+            font-weight: 900; cursor: pointer; text-transform: uppercase;
+            letter-spacing: 2px; transition: transform 0.2s, background 0.3s;
+        }
+
+        .btn-proceder:hover { background: #2b6cb0; transform: scale(1.02); }
+
+        .acciones-inferiores {
+            margin-top: 30px; display: flex; gap: 20px; justify-content: center;
+        }
+
+        .link-volver, .btn-vaciar {
+            color: #64748b; text-decoration: none; font-size: 0.9rem;
+            text-transform: uppercase; background: none; border: none; cursor: pointer;
+        }
+
+        .btn-vaciar:hover { color: #ff4d4d; }
+        .link-volver:hover { color: #1a365d; }
+
+        .vacio-msg { text-align: center; padding: 50px; color: #94a3b8; font-size: 1.5rem; }
+
+        @media (max-width: 600px) {
+            .contenedor-carrito-pro { margin: 20px 10px; padding: 15px; }
+            .titulo-carrito { font-size: 1.8rem; }
+            .item-carrito { flex-direction: column; text-align: center; gap: 15px; }
+            .info-prod-car { align-items: center; }
+            .resumen-car { align-items: center; }
+            .total-fila { font-size: 1.5rem; }
+            .btn-proceder { font-size: 1.1rem; padding: 15px; }
+            .acciones-inferiores { flex-direction: column; align-items: center; gap: 15px; }
+        }
+    </style>
+</head>
+<body class="fondo-puntos">
+
+    <header class="encabezado-principal">
+        <div class="logo-y-menu">
+            <a href="index.html" class="logo-link" style="text-decoration:none; color:inherit;">
+                <h2 class="nombre-tienda">FerVic Reconstructora</h2>
+            </a>
+        </div>
+    </header>
+
+    <main class="contenedor-carrito-pro">
+        <h1 class="titulo-carrito">Tu Carrito</h1>
+        <div id="lista-carrito"></div>
+        <div class="resumen-car">
+            <div class="total-fila">TOTAL: <span id="total-precio">$0.00</span></div>
+            <button class="btn-proceder" onclick="procederAlFormulario()">
+                PROCEDER CON EL FORMULARIO
+            </button>
+        </div>
+        <div class="acciones-inferiores">
+            <a href="index.html" class="link-volver"><i class="fas fa-arrow-left"></i> SEGUIR COMPRANDO</a>
+            <button onclick="vaciarCarrito()" class="btn-vaciar"><i class="fas fa-trash"></i> VACIAR TODO</button>
+        </div>
+    </main>
+    <script>
+        function renderizarCarrito() {
+            const carrito = JSON.parse(localStorage.getItem('carritoTienda')) || [];
+            const contenedor = document.getElementById('lista-carrito');
+            const totalTxt = document.getElementById('total-precio');
+            let totalSuma = 0;
+
+            if (carrito.length === 0) {
+                contenedor.innerHTML = "<div class='vacio-msg'>EL CARRITO ESTÁ VACÍO</div>";
+                totalTxt.innerText = "$0.00";
+                return;
+            }
+
+            contenedor.innerHTML = ""; 
+            carrito.forEach((prod, index) => {
+                totalSuma += prod.precio;
+                
+                // Si el producto viene con estado agotado, muestra un texto rojo
+                let textoAgotado = prod.agotado ? '<span class="badge-agotado-carrito">AGOTADO</span>' : '';
+
+                contenedor.innerHTML += `
+                    <div class="item-carrito">
+                        <div class="info-prod-car">
+                            <strong class="nombre-prod-car">${prod.nombre} ${textoAgotado}</strong>
+                            <span class="precio-prod-car">$${prod.precio.toLocaleString()}</span>
+                        </div>
+                        <button onclick="eliminarItem(${index})" class="btn-eliminar">
+                            <i class="fas fa-times"></i> QUITAR
+                        </button>
+                    </div>
+                `;
+            });
+            totalTxt.innerText = "$" + totalSuma.toLocaleString(undefined, {minimumFractionDigits: 2});
+        }
+
+        function eliminarItem(index) {
+            let carrito = JSON.parse(localStorage.getItem('carritoTienda'));
+            carrito.splice(index, 1);
+            localStorage.setItem('carritoTienda', JSON.stringify(carrito));
+            renderizarCarrito();
+        }
+
+        function vaciarCarrito() {
+            if(confirm("¿Deseas eliminar todos los productos del carrito?")) {
+                localStorage.removeItem('carritoTienda');
+                renderizarCarrito();
+            }
+        }
+
+        // --- NUEVA FUNCIÓN PARA VALIDAR STOCK ANTES DE SALTAR AL FORMULARIO ---
+        function procederAlFormulario() {
+            const carrito = JSON.parse(localStorage.getItem('carritoTienda')) || [];
+            
+            // Busca si hay al menos un producto que tenga el atributo "agotado" igual a true
+            const hayAgotados = carrito.some(prod => prod.agotado === true);
+            
+            if (hayAgotados) {
+                alert("¡AVISO! Tienes uno o más productos AGOTADOS en tu carrito. Por favor elimínalos para poder continuar con el formulario.");
+            } else if (carrito.length === 0) {
+                alert("Tu carrito está vacío.");
+            } else {
+                window.location.href = 'formulario.html';
+            }
+        }
+
+        window.addEventListener('load', renderizarCarrito);
+    </script>
+</body>
+</html>

@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FerVic Reconstructora - Inicio</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        body {
+            margin: 0 !important;
+            padding: 0 !important;
+            position: relative;
+            background-color: #f4f7fa; /* Fondo base */
+        }
+
+        /* --- FONDO DE PUNTOS --- */
+        .grid-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: radial-gradient(#1a365d 1px, transparent 1px);
+            background-size: 20px 20px;
+            opacity: 0.1;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .cabecera-limpia {
+            display: flex;
+            justify-content: center; 
+            align-items: center;
+            padding: 0 20px 10px 20px; 
+            position: relative; 
+            background: white; /* Cambiado a blanco para que resalte el logo */
+            min-height: 100px;
+            z-index: 1000;
+        }
+
+        /* --- MENÚ DESPLEGABLE (3 RAYAS) --- */
+        .nav-izquierda {
+            position: absolute;
+            left: 30px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: inline-block;
+        }
+
+        .boton-menu-hamburguesa {
+            background: none;
+            border: none;
+            color: #1a365d;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .menu-desplegable {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: white;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            border-radius: 4px;
+            min-width: 200px;
+            z-index: 1001;
+        }
+
+        .menu-desplegable a {
+            text-decoration: none;
+            color: #1a365d;
+            padding: 12px 16px;
+            display: block;
+            font-weight: bold;
+            font-size: 0.9rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .menu-desplegable a:hover {
+            background-color: #f8f9fa;
+        }
+
+        .nav-izquierda:hover .menu-desplegable {
+            display: block;
+        }
+
+        .logo-central-grande img {
+            max-height: 80px; 
+            width: auto;
+            display: block;
+        }
+
+        .hud-derecha {
+            position: absolute;
+            right: 30px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .carrito-hud {
+            text-decoration: none;
+            color: #1a365d;
+            font-size: 1.8rem;
+            position: relative;
+        }
+
+        #contador-carrito {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background: #ff4747;
+            color: white;
+            font-size: 0.8rem;
+            padding: 2px 6px;
+            border-radius: 50%;
+            font-family: sans-serif;
+        }
+
+        .hero-section {
+            position: relative;
+            width: 100%;
+            height: 85vh;
+            min-height: 500px;
+            background-image: url('img/background.png');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, .4);
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            color: #ffffff;
+            max-width: 900px;
+            padding: 20px;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            font-weight: bold;
+            margin: 0 0 15px 0;
+            line-height: 1.2;
+            text-shadow: 2px 2px 5px rgba(0,0,0,0.8);
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            margin: 0;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
+        }
+
+        .titulo-catalogo-arriba {
+            text-align: left;
+            max-width: 80%;
+            margin: 50px auto 10px auto;
+            color: #1a365d;
+            font-weight: bold;
+            font-size: 2.2rem;
+            scroll-margin-top: 20px;
+        }
+
+        .showcase-izquierda {
+            position: relative;
+            margin-bottom: 0;
+            max-height: 450px;
+            overflow: hidden;
+            background-color: transparent !important; 
+            border: none !important;
+            box-shadow: none !important;
+        }
+
+        .contenedor-fotos {
+            position: relative;
+            width: 100%;
+            height: 450px;
+        }
+
+        .contenedor-fotos img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 450px;
+            object-fit: contain; 
+            background: transparent !important; 
+            opacity: 0;
+            transition: opacity 0.6s ease-in-out;
+        }
+
+        .contenedor-fotos img.activa {
+            opacity: 1;
+            z-index: 1;
+        }
+
+        .tarjeta-exhibicion {
+            position: relative; 
+            background: white; /* Para que resalte sobre los puntos */
+        }
+
+        .etiqueta-estado {
+            position: absolute;
+            top: 8px;
+            left: 8px;
+            padding: 2px 6px;      
+            border-radius: 3px;
+            font-size: 0.55rem;    
+            font-weight: 500;      
+            text-transform: uppercase;
+            z-index: 10;
+            letter-spacing: 0.5px;
+            background-color: #ffffff; 
+            color: #000000;           
+            border: none !important;  
+            box-shadow: 0 2px 4px rgba(0,0,0,0.15); 
+        }
+
+        .estado-agotado {
+            color: #ff4747; 
+        }
+
+        .recuadro-mas-vendidos {
+            border: 1px solid rgba(26, 54, 93, 0.3);
+            border-radius: 10px;
+            padding: 20px 10px;
+            margin: 40px auto;
+            max-width: 1200px;
+            width: 90%;
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        .titulo-seccion {
+            text-align: left;
+            color: #1a365d;
+            font-size: 1.6rem;
+            margin: 10px 0 20px 0;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding-left: 10px;
+        }
+
+        .letrero-neon-marco { border: 2px solid #ff4747; background-color: #fff5f5; padding: 10px; overflow: hidden; white-space: nowrap; margin-top: 15px; }
+        .slogan-cliente { text-align: center; color: #1a365d; margin-top: 15px; font-weight: bold; }
+        .espacio-vacio-busqueda { height: -20px; margin-bottom: 0px; }
+
+        @media (min-width: 1024px) {
+            .showcase-izquierda { width: 80% !important; max-width: 1000px; margin: 0 auto !important; border-radius: 15px !important; }
+            .titulo-catalogo-arriba { max-width: 800px; }
+            .contenedor-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px; max-width: 1200px; margin: 0 auto; padding: 20px; }
+        }
+
+        .footer-informativo { background: #1a365d; color: white; padding: 50px 20px; margin-top: 80px; border-top: 5px solid #2b6cb0; scroll-margin-top: 20px; }
+        .footer-contenido { max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 40px; }
+        .columna-footer { flex: 1; min-width: 250px; }
+        .columna-footer h3 { margin-bottom: 20px; color: #63b3ed; font-size: 1.1rem; }
+        .caja-info-pagos { background: white; padding: 15px; border-radius: 8px; margin-top: 10px; border: 2px solid #ff0000; }
+        .iconos-pagos-footer { font-size: 2rem; display: flex; gap: 15px; margin-bottom: 10px; justify-content: flex-start; align-items: center; }
+        .icono-visa { color: #1a1f71 !important; } 
+        .icono-mastercard { color: #eb001b !important; }
+        .icono-paypal { color: #003087 !important; }
+        .icono-oxxo { color: #ff0000 !important; background: #ffcc00; border-radius: 4px; padding: 2px; }
+        .texto-pago-small { font-size: 0.85rem; line-height: 1.4; color: #ff0000; font-weight: bold; margin: 0; }
+        .mapa-contenedor { width: 100%; height: 200px; border-radius: 15px; overflow: hidden; border: 2px solid rgba(255,255,255,0.1); }
+        .contacto-item { display: flex; align-items: center; gap: 15px; margin-bottom: 12px; }
+        .contacto-item i { color: #63b3ed; font-size: 1.1rem; }
+
+        @media (max-width: 768px) {
+            .nav-izquierda { position: absolute; left: 15px; transform: translateY(-50%); width: auto; order: unset; }
+            .cabecera-limpia { flex-direction: row; padding: 10px; }
+            .hud-derecha { right: 15px; }
+            .logo-central-grande img { max-height: 60px; } 
+            .hero-content h1 { font-size: 2rem; }
+            .hero-section { height: 60vh; min-height: 350px; }
+            .showcase-izquierda, .contenedor-fotos { height: 250px; }
+            .contenedor-fotos img { height: 250px; }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="grid-overlay"></div>
+
+    <header class="cabecera-limpia">
+        <div class="nav-izquierda">
+            <button class="boton-menu-hamburguesa">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="menu-desplegable">
+                <a href="#catalogo-seccion">CATÁLOGO</a>
+                <a href="#conocenos">ACERCA DE NOSOTROS</a>
+            </div>
+        </div>
+
+        <div class="logo-central-grande">
+            <img src="img/FERVIC.png" alt="FerVic Logo">
+        </div>
+
+        <div class="hud-derecha">
+            <a href="carrito.html" class="carrito-hud">
+                <i class="fas fa-shopping-cart"></i>
+                <span id="contador-carrito">0</span>
+            </a>
+        </div>
+    </header>
+
+    <section class="hero-section">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1>Maximize su flota con starters de alto rendimiento en stock</h1>
+            <p>Starters para tráiler, carro, maquinaria, máquinas agrícolas, tractores y reparto urbano</p> 
+        </div>
+    </section>
+
+    <main class="contenedor-centro">
+        <p class="titulo-catalogo-arriba" id="catalogo-seccion">CATALOGO</p>
+
+        <div class="showcase-izquierda">
+            <div class="contenedor-fotos">
+                <img src="img/Publicidad 1.png" alt="Publicidad 1">
+                <img src="img/Publicidad 2.png" alt="Publicidad 2">
+                <img src="img/Publicidad 3.png" alt="Publicidad 3">
+            </div>
+        </div>
+
+        <div id="seccion-mas-vendidos-wrapper" class="recuadro-mas-vendidos">
+            <h2 class="titulo-seccion">Más Vendidos</h2>
+            <section class="contenedor-grid" id="contenedor-mas-vendidos"></section>
+        </div>
+
+        <div class="letrero-neon-marco">
+            <div class="letrero-neon-flujo">
+                <span>SEMANA — NUEVOS PRODUCTOS CADA SEMANA — </span>
+            </div>
+        </div>
+
+        <p class="slogan-cliente">Tu mejor opción en reconstrucción automotriz</p>
+
+        <div class="espacio-vacio-busqueda"></div>
+
+        <div class="busqueda-wrapper">
+            <input type="text" id="input-busqueda" placeholder="¿Qué pieza buscas hoy?">
+        </div>
+        
+        <h2 class="titulo-seccion" id="titulo-todos-productos">Todos los Productos</h2>
+        <section class="contenedor-grid" id="contenedor-productos"></section>
+    </main>
+
+    <footer class="footer-informativo" id="conocenos">
+        <div class="footer-contenido">
+            <div class="columna-footer">
+                <h3>CONÓCENOS</h3>
+                <p style="font-size: 0.9rem; line-height: 1.6; opacity: 0.8;">
+                    En FerVic Reconstructora nos especializamos en devolverle la vida a tus marchas y componentes automotrices con precisión y refacciones de alta calidad.
+                </p>
+                <div class="metodos-pago-footer">
+                    <div class="caja-info-pagos">
+                        <div class="iconos-pagos-footer">
+                            <i class="fab fa-cc-visa icono-visa"></i>
+                            <i class="fab fa-cc-mastercard icono-mastercard"></i>
+                            <i class="fab fa-paypal icono-paypal"></i>
+                            <i class="fas fa-store icono-oxxo"></i>
+                        </div>
+                        <p class="texto-pago-small">
+                            ACEPTAMOS OXXO, VISA Y PAYPAL. AL CONFIRMAR TU PEDIDO, TE REDIRIGIREMOS CON UN COMPAÑERO PARA BRINDARTE EL NÚMERO DE CUENTA.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="columna-footer" id="contacto">
+                <h3>CONTACTO</h3>
+                <div class="contacto-item"><i class="fab fa-whatsapp"></i><span>+52 1 56 1171 9482</span></div>
+                <div class="contacto-item"><i class="fas fa-envelope"></i><span>fervic_recon@hotmail.com</span></div>
+                <div class="contacto-item"><i class="fas fa-map-marker-alt"></i><span>Calle Emiliano Zapata, 55694 El Carmen, Méx.</span></div>
+            </div>
+
+            <div class="columna-footer">
+                <h3>UBICACIÓN</h3>
+                <div class="mapa-contenedor">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3753.868779672054!2d-98.9664426!3d19.7490069!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d19213197171d1%3A0x7d6c6e7f230f6534!2sCalle%20Emiliano%20Zapata%2C%2055694%20El%20Carmen%2C%20M%C3%A9x.!5e0!3m2!1ses-419!2smx!4v1710000000000!5m2!1ses-419!2smx" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                </div>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 50px; opacity: 0.5; font-size: 0.75rem; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px;">
+            © 2026 FerVic Reconstructora. Todos los derechos reservados.
+        </div>
+    </footer>
+
+    <script src="productos.js"></script>
+    <script>
+        const fotosShowcase = document.querySelectorAll('.contenedor-fotos img');
+        let indexFoto = 0;
+
+        if (fotosShowcase.length > 0) {
+            fotosShowcase[0].classList.add('activa');
+            setInterval(() => {
+                fotosShowcase[indexFoto].classList.remove('activa');
+                indexFoto = (indexFoto + 1) % fotosShowcase.length;
+                fotosShowcase[indexFoto].classList.add('activa');
+            }, 2000); 
+        }
+
+        const contenedorTodos = document.getElementById('contenedor-productos');
+        const contenedorMasVendidos = document.getElementById('contenedor-mas-vendidos');
+        const inputBusqueda = document.getElementById('input-busqueda');
+        const seccionMasVendidosWrapper = document.getElementById('seccion-mas-vendidos-wrapper');
+        const tituloTodosProductos = document.getElementById('titulo-todos-productos');
+
+        function crearHTMLTarjeta(id, p) {
+            const claseEstado = p.enStock === false ? "estado-agotado" : "estado-disponible";
+            const textoEstado = p.enStock === false ? "Agotado" : "Disponible";
+
+            return `
+                <div class="tarjeta-exhibicion">
+                    <div class="etiqueta-estado ${claseEstado}">${textoEstado}</div>
+                    <div class="imagen-recuadro"><img src="${p.fotos[0]}" alt="${p.nombre}"></div>
+                    <div class="info-recuadro">
+                        <h3>${p.nombre}</h3>
+                        <p class="precio-tarjeta">$${p.precio.toLocaleString()}.00</p>
+                        <div class="botones-tarjeta">
+                            <a href="producto.html?id=${id}" class="btn-detalles">DETALLES</a>
+                            <button class="btn-agregar-carro" onclick="agregarAlCarrito('${p.nombre}', ${p.precio}, '${p.fotos[0]}')">
+                                <i class="fas fa-cart-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>`;
+        }
+
+        function renderizar(productosParaMostrar, contenedorDestino) {
+            if(!contenedorDestino) return;
+            contenedorDestino.innerHTML = "";
+            let hayResultados = false;
+            for (let id in productosParaMostrar) {
+                hayResultados = true;
+                contenedorDestino.innerHTML += crearHTMLTarjeta(id, productosParaMostrar[id]);
+            }
+            if (!hayResultados) {
+                contenedorDestino.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: #1a365d; padding: 40px; opacity: 0.7;">No hay resultados.</p>`;
+            }
+        }
+
+        function cargarMasVendidos() {
+            const keys = Object.keys(catalogoProductos);
+            const numProductos = Math.min(3, keys.length); 
+            const aleatorios = {};
+            let keysMezcladas = [...keys];
+            for (let i = keysMezcladas.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [keysMezcladas[i], keysMezcladas[j]] = [keysMezcladas[j], keysMezcladas[i]];
+            }
+            for(let i = 0; i < numProductos; i++) {
+                const idSeleccionado = keysMezcladas[i];
+                aleatorios[idSeleccionado] = catalogoProductos[idSeleccionado];
+            }
+            renderizar(aleatorios, contenedorMasVendidos);
+        }
+
+        inputBusqueda.addEventListener('input', (e) => {
+            const termino = e.target.value.toLowerCase();
+            const filtrados = {};
+            for (let id in catalogoProductos) {
+                const prod = catalogoProductos[id];
+                if (prod.nombre.toLowerCase().includes(termino) || prod.marca.toLowerCase().includes(termino)) {
+                    filtrados[id] = prod;
+                }
+            }
+            renderizar(filtrados, contenedorTodos);
+            if (termino !== "") {
+                seccionMasVendidosWrapper.style.display = 'none';
+                tituloTodosProductos.innerText = "Resultados de búsqueda";
+            } else {
+                seccionMasVendidosWrapper.style.display = 'block';
+                tituloTodosProductos.innerText = "Todos los Productos";
+            }
+        });
+
+        cargarMasVendidos();
+        renderizar(catalogoProductos, contenedorTodos);
+
+        function agregarAlCarrito(n, p, i) {
+            let c = JSON.parse(localStorage.getItem('carritoTienda')) || [];
+            c.push({ nombre: n, precio: p, imagen: i });
+            localStorage.setItem('carritoTienda', JSON.stringify(c));
+            actualizarContador();
+            alert("Añadido al carrito");
+        }
+
+        function actualizarContador() {
+            let c = JSON.parse(localStorage.getItem('carritoTienda')) || [];
+            const badge = document.getElementById('contador-carrito');
+            if(badge) badge.innerText = c.length;
+        }
+        window.onload = actualizarContador;
+    </script>
+</body>
+</html>

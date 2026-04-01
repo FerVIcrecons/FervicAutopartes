@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="titulo-pestana">FerVic - Producto</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Ajustes específicos para la página de detalle */
+        .contenedor-producto-unico { 
+            display: flex; 
+            max-width: 1100px; 
+            margin: 40px auto; 
+            gap: 50px; 
+            padding: 20px; 
+            align-items: flex-start; 
+        }
+
+        .visor-imagenes { 
+            flex: 1.2; 
+            background: #fff; 
+            border: 1px solid #e2e8f0; 
+            border-radius: 15px; 
+            position: relative; 
+            padding: 40px; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            min-height: 480px; 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03); 
+        }
+
+        .imagen-grande-container img { 
+            max-width: 100%; 
+            max-height: 400px; 
+            object-fit: contain; 
+            transition: opacity 0.3s ease; 
+        }
+
+        /* Controles de Galería */
+        .control-izq, .control-der {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(26, 54, 93, 0.1);
+            border: none;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            cursor: pointer;
+            color: #1a365d;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+        }
+        .control-izq:hover, .control-der:hover { background: #1a365d; color: #fff; }
+        .control-izq { left: 20px; }
+        .control-der { right: 20px; }
+
+        .contador-fotos {
+            position: absolute;
+            bottom: 20px;
+            right: 30px;
+            font-weight: bold;
+            color: #64748b;
+        }
+
+        /* Estética de Información Técnica */
+        .detalle-info-tecnica { flex: 1; }
+        
+        .tag-disponible { background: #dcfce7 !important; border-color: #166534 !important; color: #166534 !important; }
+        .tag-agotado { background: #fee2e2 !important; border-color: #991b1b !important; color: #991b1b !important; }
+        
+        .tabla-especificaciones { width: 100%; border-collapse: collapse; margin: 20px 0; }
+        .tabla-especificaciones td { padding: 12px 0; border-bottom: 1px solid #eee; color: #4a5568; }
+        .tabla-especificaciones td:first-child { font-weight: bold; color: #1a365d; width: 45%; text-transform: uppercase; font-size: 0.85rem; }
+
+        @media (max-width: 900px) { 
+            .contenedor-producto-unico { flex-direction: column; } 
+            .visor-imagenes { width: 100%; min-height: 350px; }
+        }
+    </style>
+</head>
+<body class="fondo-puntos">
+
+    <header class="encabezado-principal">
+        <div class="logo-y-menu">
+            <div class="contenedor-identidad">
+                <a href="index.html" style="text-decoration: none; color: inherit; display: flex; align-items: center; gap: 10px;">
+                    <i class="fas fa-arrow-left"></i>
+                    <h2 style="font-size: 1.2rem;">VOLVER AL CATÁLOGO</h2>
+                </a>
+            </div>
+            <div class="hud-derecha">
+                <a href="carrito.html" class="carrito-hud">
+                    <i class="fas fa-shopping-cart"></i>
+                    <span id="contador-carrito">0</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="contenedor-producto-unico" id="render-producto">
+        </main>
+
+    <script src="productos.js"></script>
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const id = urlParams.get('id');
+        const p = catalogoProductos[id];
+
+        let indiceFoto = 0;
+
+        if (p) {
+            document.title = `FerVic - ${p.nombre}`;
+            
+            document.getElementById('render-producto').innerHTML = `
+                <div class="visor-imagenes">
+                    <button class="control-izq" onclick="cambiarFoto(-1)"><i class="fas fa-chevron-left"></i></button>
+                    <div class="imagen-grande-container">
+                        <img src="${p.fotos[0]}" id="fotoPrincipal">
+                    </div>
+                    <button class="control-der" onclick="cambiarFoto(1)"><i class="fas fa-chevron-right"></i></button>
+                    <p class="contador-fotos"><span id="fotoActual">1</span> / <span id="totalFotos">${p.fotos.length}</span></p>
+                </div>
+
+                <div class="detalle-info-tecnica">
+                    <div style="display:flex; gap:10px; margin-bottom:15px;">
+                        <span class="marca-tag">MARCA: ${p.marca}</span>
+                        <span class="marca-tag ${p.enStock ? 'tag-disponible' : 'tag-agotado'}">
+                            ${p.enStock ? 'DISPONIBLE' : 'AGOTADO'}
+                        </span>
+                    </div>
+                    
+                    <h1 style="color: #1a365d; font-size: 2.2rem; margin-bottom: 5px;">${p.nombre}</h1>
+                    <p class="precio-tarjeta" style="font-size: 2rem; margin-bottom: 25px; color: #1a365d;">$${p.precio.toLocaleString()}.00</p>
+                    
+                    <table class="tabla-especificaciones" id="tabla-specs">
+                        </table>
+
+                    <button class="btn-agregar-carro" 
+                            ${!p.enStock ? 'disabled' : ''} 
+                            onclick="agregarAlCarrito('${p.nombre}', ${p.precio}, '${p.fotos[0]}')"
+                            style="width: 100%; padding: 20px; font-weight: bold; margin-top: 20px; cursor: pointer;">
+                        <i class="fas ${p.enStock ? 'fa-cart-plus' : 'fa-ban'}"></i> 
+                        ${p.enStock ? 'AGREGAR AL CARRITO' : 'NO DISPONIBLE'}
+                    </button>
+                </div>
+            `;
+
+            // Llenar tabla de especificaciones filtrando valores vacíos
+            const tabla = document.getElementById('tabla-specs');
+            for (let [llave, valor] of Object.entries(p.specs)) {
+                if(valor && valor !== "---") {
+                    tabla.innerHTML += `<tr><td>${llave}</td><td>${valor}</td></tr>`;
+                }
+            }
+
+        } else {
+            document.getElementById('render-producto').innerHTML = `
+                <div style="text-align:center; width:100%; padding: 100px 20px;">
+                    <i class="fas fa-exclamation-circle" style="font-size: 3rem; color: #cbd5e1; margin-bottom: 20px;"></i>
+                    <h2>Producto no encontrado en nuestro catálogo</h2>
+                    <a href="index.html" class="btn-detalles" style="display:inline-block; margin-top:20px; padding: 10px 25px; text-decoration: none;">Regresar al Inicio</a>
+                </div>`;
+        }
+
+        function cambiarFoto(direccion) {
+            if (!p.fotos || p.fotos.length <= 1) return;
+            indiceFoto = (indiceFoto + direccion + p.fotos.length) % p.fotos.length;
+            document.getElementById('fotoPrincipal').src = p.fotos[indiceFoto];
+            document.getElementById('fotoActual').innerText = indiceFoto + 1;
+        }
+
+        function agregarAlCarrito(nombre, precio, imgPath) {
+            let carrito = JSON.parse(localStorage.getItem('carritoTienda')) || [];
+            carrito.push({ nombre: nombre, precio: precio, imagen: imgPath });
+            localStorage.setItem('carritoTienda', JSON.stringify(carrito));
+            
+            document.getElementById('contador-carrito').innerText = carrito.length;
+            alert(`${nombre} ha sido agregado al carrito.`);
+        }
+
+        window.onload = () => {
+            let carrito = JSON.parse(localStorage.getItem('carritoTienda')) || [];
+            document.getElementById('contador-carrito').innerText = carrito.length;
+        };
+    </script>
+</body>
+</html>

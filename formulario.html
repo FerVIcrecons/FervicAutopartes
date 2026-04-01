@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <title>Finalizar Pedido - FerVic Reconstructora</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
+    <style>
+        .seccion-formulario {
+            max-width: 700px;
+            margin: 40px auto;
+            padding: 30px;
+            background: #ffffff; /* FONDO BLANCO */
+            border: 1px solid #e2e8f0; /* BORDE GRIS */
+            color: #1e293b; /* TEXTO OSCURO */
+        }
+
+        .grupo-input { margin-bottom: 20px; }
+
+        .grupo-input label {
+            display: block;
+            margin-bottom: 8px;
+            color: #1a365d; /* AZUL MARINO */
+            font-size: 0.9rem;
+            text-transform: uppercase;
+        }
+
+        .grupo-input input {
+            width: 100%;
+            padding: 12px;
+            background: #f8fafc; /* FONDO CLARO */
+            border: 1px solid #cbd5e1; /* BORDE GRIS */
+            color: #1e293b; /* TEXTO OSCURO */
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .grupo-input input:focus { border-color: #2b6cb0; } /* BORDE AZUL EN FOCUS */
+
+        .fila-doble {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .nota-seguridad {
+            background: #f1f5f9; /* FONDO GRISÁCEO */
+            border: 1px solid #2b6cb0; /* BORDE AZUL */
+            padding: 20px;
+            margin: 30px 0;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: #475569; /* TEXTO GRIS */
+        }
+
+        .nota-seguridad strong {
+            color: #1a365d; /* AZUL MARINO */
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .btn-finalizar {
+            width: 100%;
+            background: #1a365d; /* FONDO AZUL MARINO */
+            color: #ffffff; /* TEXTO BLANCO */
+            border: none;
+            padding: 18px;
+            font-weight: 900;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 1.1rem;
+            transition: 0.3s;
+        }
+
+        .btn-finalizar:hover { background: #2b6cb0; transform: scale(1.02); }
+
+        /* Estilo para el área que se convertirá en PDF */
+        #plantilla-pdf {
+            display: none;
+            padding: 40px;
+            color: #000;
+            background: #fff;
+            font-family: Arial, sans-serif;
+        }
+    </style>
+</head>
+<body class="fondo-puntos">
+
+    <header class="encabezado-principal">
+        <a href="index.html" class="logo-link">
+            <h2 class="nombre-tienda">FerVic Reconstructora</h2>
+        </a>
+    </header>
+
+    <main class="seccion-formulario">
+        <h2 style="border-left: 4px solid #2b6cb0; padding-left: 15px; margin-bottom: 30px; color: #1a365d;">DETALLES DE ENTREGA</h2>
+        
+        <form id="form-pedido">
+            <div class="grupo-input">
+                <label>Nombre/nombres</label>
+                <input type="text" id="nombre" required placeholder="Ej. Juan Roberto">
+            </div>
+
+            <div class="fila-doble">
+                <div class="grupo-input">
+                    <label>Apellido Paterno</label>
+                    <input type="text" id="ap-paterno" required>
+                </div>
+                <div class="grupo-input">
+                    <label>Apellido Materno</label>
+                    <input type="text" id="ap-materno" required>
+                </div>
+            </div>
+
+            <div class="fila-doble">
+                <div class="grupo-input">
+                    <label>Código Postal</label>
+                    <input type="number" id="cp" required>
+                </div>
+                <div class="grupo-input">
+                    <label>Teléfono</label>
+                    <input type="tel" id="telefono" required placeholder="56 2014 1056">
+                </div>
+            </div>
+
+            <div class="grupo-input">
+                <label>Dirección de Envío</label>
+                <input type="text" id="direccion" required placeholder="Calle, Número, Colonia y Ciudad">
+            </div>
+
+            <div class="grupo-input">
+                <label>Correo de Contacto</label>
+                <input type="email" id="email" required placeholder="tu@correo.com">
+            </div>
+
+            <div class="nota-seguridad">
+                <strong>Protocolo de Seguridad e Integridad:</strong>
+                Para garantizar un servicio profesional, sus datos serán procesados para el empaquetado del producto. Al dar clic, se generará su comprobante y se le vinculará con un asistente para coordinar el costo de envío y los métodos oficiales de pago.
+            </div>
+
+            <button type="submit" class="btn-finalizar">FINALIZAR Y GENERAR COMPROBANTE</button>
+        </form>
+    </main>
+    <div id="plantilla-pdf">
+        <h1 style="color: #000; margin: 0;">FERVIC RECONSTRUCTORA</h1>
+        <p style="color: #666; font-size: 12px; margin-bottom: 20px;">Nota de Pedido - Venta sujeta a confirmación</p>
+        <hr>
+        <h3>INFORMACIÓN DEL CLIENTE</h3>
+        <div id="pdf-contenido-datos"></div>
+        <hr>
+        <h4>PRODUCTOS:</h4>
+        <div id="pdf-lista-productos"></div>
+        <br>
+        <h2 id="pdf-total" style="background: #eefbff; padding: 15px; text-align: right;"></h2>
+        <div style="margin-top: 50px; border-top: 1px solid #ccc; padding-top: 10px; font-size: 11px; color: #555;">
+            <p>1. Este documento no representa un recibo de pago, es una solicitud de pedido.</p>
+            <p>2. El costo de envío se calculará de acuerdo a su código postal.</p>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('form-pedido').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const datos = {
+                nombre: document.getElementById('nombre').value,
+                paterno: document.getElementById('ap-paterno').value,
+                materno: document.getElementById('ap-materno').value,
+                cp: document.getElementById('cp').value,
+                tel: document.getElementById('telefono').value,
+                dir: document.getElementById('direccion').value,
+                email: document.getElementById('email').value
+            };
+            const carrito = JSON.parse(localStorage.getItem('carritoTienda')) || [];
+            if (carrito.length === 0) { alert("El carrito está vacío."); return; }
+            let total = 0;
+            let listaTextoParaWS = "";
+            let htmlProductos = "<ul style='list-style: none; padding: 0;'>";
+            carrito.forEach(p => {
+                htmlProductos += `<li style='margin-bottom: 10px; border-bottom: 1px dotted #ccc;'>${p.nombre} - <strong>$${p.precio.toLocaleString()}</strong></li>`;
+                listaTextoParaWS += `%0A- ${p.nombre} ($${p.precio.toLocaleString()})`;
+                total += p.precio;
+            });
+            htmlProductos += "</ul>";
+            document.getElementById('pdf-contenido-datos').innerHTML = `
+                <p><strong>Cliente:</strong> ${datos.nombre} ${datos.paterno} ${datos.materno}</p>
+                <p><strong>Teléfono:</strong> ${datos.tel}</p>
+                <p><strong>Email:</strong> ${datos.email}</p>
+                <p><strong>Dirección:</strong> ${datos.dir} (CP: ${datos.cp})</p>
+            `;
+            document.getElementById('pdf-lista-productos').innerHTML = htmlProductos;
+            document.getElementById('pdf-total').innerText = "TOTAL: $" + total.toLocaleString();
+            const elementoPDF = document.getElementById('plantilla-pdf');
+            elementoPDF.style.display = 'block';
+            const opt = {
+                margin: 0.5,
+                filename: `Pedido_FerVic_${datos.nombre}.pdf`,
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2 },
+                jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+            };
+            html2pdf().from(elementoPDF).set(opt).save().then(() => {
+                elementoPDF.style.display = 'none';
+                const mensajeWS = 
+                    `*NUEVO PEDIDO - FERVIC RECONSTRUCTORA*%0A` +
+                    `----------------------------------------%0A` +
+                    `*CLIENTE:* ${datos.nombre} ${datos.paterno} ${datos.materno}%0A` +
+                    `*TEL:* ${datos.tel}%0A` +
+                    `*DIRECCIÓN:* ${datos.dir}%0A` +
+                    `*CP:* ${datos.cp}%0A` +
+                    `----------------------------------------%0A` +
+                    `*PRODUCTOS:*${listaTextoParaWS}%0A` +
+                    `----------------------------------------%0A` +
+                    `*TOTAL:* $${total.toLocaleString()}%0A%0A` +
+                    `_He generado mi PDF. Quedo en espera para instrucciones de pago y envío._`;
+                const urlWS = `https://wa.me/+5215611719482?text=${mensajeWS}`;
+                localStorage.removeItem('carritoTienda');
+                alert("¡Comprobante generado con éxito! Pulsa aceptar para contactar al vendedor.");
+                window.location.href = urlWS;
+            });
+        });
+    </script>
+</body>
+</html>

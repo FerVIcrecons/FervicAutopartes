@@ -1,0 +1,484 @@
+/* ==========================================
+   1. RESET GENERAL
+   ========================================== */
+* { 
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box; 
+}
+
+body 
+
+/* --- ESTILOS DE SUBTÍTULOS (NUEVO) --- */
+.titulo-seccion {
+    text-align: left !important;
+    font-family: sans-serif !important;
+    color: #1A365D;
+    font-size: 1.6rem;
+    margin: 20px 0 20px 5%;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.titulo-catalogo-arriba {
+    text-align: left !important;
+    font-family: sans-serif !important;
+    color: #1A365D;
+    font-weight: bold;
+    font-size: 2.2rem;
+    margin: 50px 0 10px 5%;
+}
+
+/* --- FONDO DE MALLA --- */
+.factory-background {
+    position: fixed; 
+    top: 0; 
+    width: 100%; 
+    height: 100%;
+    z-index: -1; 
+    background: #ffffff;
+}
+
+.grid-overlay {
+    width: 100%; 
+    height: 100%;
+    background-image: radial-gradient(#e2e8f0 1px, transparent 1px);
+    background-size: 30px 30px;
+}
+
+/* ==========================================
+   2. HEADER / HUD
+   ========================================== */
+.encabezado-principal {
+    background-color: #1A365D; 
+    padding: 10px 5%;
+    position: fixed; 
+    width: 100%; 
+    top: 0; 
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.logo-y-menu { 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    max-width: 1200px; 
+    margin: 0 auto; 
+}
+
+.boton-menu { 
+    border: 1.5px solid #ffffff; 
+    padding: 6px; 
+    border-radius: 4px; 
+    display: flex; 
+    flex-direction: column; 
+    gap: 4px; 
+    cursor: pointer; 
+}
+
+.barra { 
+    width: 20px; 
+    height: 2px; 
+    background-color: #ffffff; 
+}
+
+.submenu-desplegable {
+    display: none; 
+    position: absolute; 
+    top: 100%; 
+    left: 0;
+    background: #ffffff; 
+    min-width: 180px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    border-radius: 0 0 8px 8px; 
+    z-index: 1000;
+}
+
+.menu-personalizado:hover .submenu-desplegable {
+    display: block;
+}
+
+.submenu-desplegable a { 
+    color: #1A365D; 
+    text-decoration: none; 
+    display: block; 
+    padding: 12px 20px; 
+    font-size: 14px; 
+}
+
+.submenu-desplegable a:hover { 
+    background: #f1f5f9; 
+}
+
+.carrito-hud { 
+    color: #ffffff; 
+    text-decoration: none; 
+    font-size: 22px; 
+    display: flex; 
+    align-items: center; 
+    gap: 8px; 
+}
+
+#contador-carrito { 
+    background: #FF4B2B; 
+    font-size: 12px; 
+    padding: 2px 6px; 
+    border-radius: 50%; 
+}
+
+/* ==========================================
+   3. ESTRUCTURA CENTRAL (ORDEN FLEXIBLE)
+   ========================================== */
+.contenedor-centro {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+/* Orden base para PC */
+.hero-logo-cascada { 
+    order: 1; 
+    margin: 20px 0; 
+}
+
+.logo-central-grande img { 
+    width: 250px; 
+    max-width: 90%; 
+    mix-blend-mode: multiply; 
+}
+
+.showcase-izquierda { 
+    order: 2; 
+    position: relative; 
+    width: 90%; 
+    max-width: 1000px; 
+    aspect-ratio: 21/9; 
+    border-radius: 20px; 
+    overflow: hidden; 
+    background: #000; 
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1); 
+    margin-bottom: 30px; 
+}
+
+.contenedor-fotos { 
+    position: relative; 
+    width: 100%; 
+    height: 100%; 
+}
+
+.contenedor-fotos img {
+    position: absolute; 
+    top: 0; 
+    left: 0;
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover;
+    opacity: 0; 
+    animation: fadeContinuo 21s infinite linear;
+}
+
+.contenedor-fotos img:nth-child(1) { animation-delay: 0s; }
+.contenedor-fotos img:nth-child(2) { animation-delay: 7s; }
+.contenedor-fotos img:nth-child(3) { animation-delay: 14s; }
+
+@keyframes fadeContinuo { 
+    0% { opacity: 0; } 
+    5% { opacity: 1; } 
+    28% { opacity: 1; } 
+    33.3% { opacity: 0; } 
+    100% { opacity: 0; } 
+}
+
+.letrero-neon-marco { 
+    order: 3; 
+    width: 100%; 
+    max-width: 500px; 
+    border: 2px solid #2B6CB0; 
+    background: #ffffff; 
+    padding: 10px 0; 
+    overflow: hidden; 
+    border-radius: 5px; 
+    margin-bottom: 15px; 
+}
+
+.letrero-neon-flujo { 
+    display: flex; 
+    width: max-content; 
+    animation: marquee 15s linear infinite; 
+}
+
+.letrero-neon-flujo span {
+    font-family: monospace;
+    font-weight: bold;
+    color: #b30707; /* <- ESTE ES EL COLOR AZUL ACTUAL */
+    padding-right: 50px;
+}
+
+@keyframes marquee { 
+    0% { transform: translateX(0); } 
+    100% { transform: translateX(-50%); } 
+}
+
+.slogan-cliente { 
+    order: 4; 
+    color: #2B6CB0; 
+    font-weight: bold; 
+    font-size: 1.2rem; 
+    margin-bottom: 30px; 
+}
+
+/* ==========================================
+   4. BUSCADOR Y BOTONES 
+   ========================================== */
+.busqueda-wrapper {
+    order: 5;
+    display: flex; 
+    gap: 15px; 
+    width: 100%; 
+    max-width: 600px; 
+    padding: 0 20px; 
+    margin-bottom: 50px;
+}
+
+#input-busqueda {
+    flex: 1; 
+    padding: 12px 20px; 
+    border: 2px solid #E2E8F0; 
+    border-radius: 25px; 
+    outline: none; 
+    transition: 0.3s; 
+    font-size: 1rem;
+}
+
+#input-busqueda:focus { 
+    border-color: #2B6CB0; 
+}
+
+.botones-vista button {
+    background: white; 
+    border: 1px solid #E2E8F0; 
+    padding: 10px 15px; 
+    border-radius: 8px; 
+    cursor: pointer; 
+    color: #1A365D;
+}
+
+.botones-vista button:hover { 
+    background: #f1f5f9; 
+}
+
+/* ==========================================
+   5. GRID DE PRODUCTOS 
+   ========================================== */
+.contenedor-grid {
+    order: 6;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 30px; 
+    width: 100%; 
+    max-width: 1200px;
+    padding: 0 20px 50px 20px;
+}
+
+.tarjeta-exhibicion {
+    background: #ffffff; 
+    border: 1px solid #E2E8F0; 
+    border-radius: 12px;
+    padding: 15px; 
+    display: flex; 
+    flex-direction: column;
+    transition: 0.3s;
+}
+
+.tarjeta-exhibicion:hover { 
+    transform: translateY(-5px); 
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05); 
+    border-color: #2B6CB0; 
+}
+
+.imagen-recuadro { 
+    height: 180px; 
+    padding: 10px; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+}
+
+.imagen-recuadro img { 
+    max-width: 100%; 
+    max-height: 100%; 
+    object-fit: contain; 
+}
+
+.info-recuadro { 
+    padding-top: 15px; 
+    text-align: left; 
+}
+
+.info-recuadro h3 { 
+    font-size: 0.95rem; 
+    color: #1E293B; 
+    margin-bottom: 10px; 
+    font-weight: 600; 
+}
+
+.precio-tarjeta { 
+    font-size: 1.4rem; 
+    font-weight: 800; 
+    color: #1A365D; 
+    margin-bottom: 15px; 
+}
+
+.botones-tarjeta { 
+    display: flex; 
+    gap: 10px; 
+}
+
+.btn-detalles { 
+    flex: 1; 
+    text-align: center; 
+    border: 1px solid #2B6CB0; 
+    color: #2B6CB0; 
+    padding: 8px; 
+    font-weight: bold; 
+    border-radius: 5px; 
+    font-size: 0.8rem; 
+    text-decoration: none; 
+}
+
+.btn-agregar-carro { 
+    background: #2B6CB0; 
+    color: white; 
+    border: none; 
+    padding: 8px 15px; 
+    border-radius: 5px; 
+    cursor: pointer; 
+}
+
+/* VISTA LISTA */
+.vista-lista {
+    display: flex !important;
+    flex-direction: column !important;
+}
+
+.vista-lista .tarjeta-exhibicion {
+    flex-direction: row;
+    height: 140px;
+}
+
+.vista-lista .imagen-recuadro { width: 150px; height: 100%; }
+.vista-lista .info-recuadro {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* ==========================================
+   6. FOOTER 
+   ========================================== */
+.footer-informativo { 
+    background: #1A365D; 
+    color: white; 
+    padding: 50px 20px; 
+    margin-top: 50px; 
+    border-top: 5px solid #2B6CB0; 
+}
+
+.footer-contenido { 
+    max-width: 1200px; 
+    margin: 0 auto; 
+    display: flex; 
+    flex-wrap: wrap; 
+    gap: 40px; 
+}
+
+.columna-footer { 
+    flex: 1; 
+    min-width: 250px; 
+}
+
+.columna-footer h3 { 
+    margin-bottom: 20px; 
+    color: #63b3ed; 
+}
+
+.mapa-contenedor { 
+    width: 100%; 
+    height: 250px; 
+    border-radius: 12px; 
+    overflow: hidden; 
+    border: 2px solid rgba(255,255,255,0.1); 
+}
+
+.contacto-item { 
+    display: flex; 
+    align-items: center; 
+    gap: 15px; 
+    margin-bottom: 15px; 
+}
+
+.contacto-item i { 
+    color: #63b3ed; 
+    font-size: 1.2rem; 
+}
+
+/* ==========================================
+   7. AJUSTES PARA CELULAR (CORREGIDO)
+   ========================================== */
+@media (max-width: 768px) {
+    body { 
+        /* Cambiado de 600px a 70px para que el contenido no baje tanto */
+        padding-top: 70px; 
+    }
+    
+    .showcase-izquierda {
+        order: 1 !important;
+        /* Cambiado de 10vw a 100% para que ocupe todo el ancho */
+        width: 100% !important; 
+        max-width: none !important;
+        margin: 0 !important; 
+        border-radius: 0 !important;
+        /* Ajuste de altura automática para evitar huecos */
+        aspect-ratio: 16/9; 
+        height: auto !important;
+    }
+
+    .hero-logo-cascada {
+        order: 2 !important;
+        margin: 10px 0 15px 0 !important;
+    }
+    
+    .logo-central-grande img { 
+        width: 160px; 
+    }
+    
+    .slogan-cliente { 
+        font-size: 0.9rem; 
+        padding: 0 15px; 
+    }
+    
+    .busqueda-wrapper { 
+        width: 90%; 
+        margin-bottom: 20px; 
+    }
+
+    .contenedor-grid { 
+        /* Grid de 2 columnas para aprovechar el espacio */
+        grid-template-columns: repeat(2, 1fr) !important; 
+        gap: 8px !important; 
+        padding: 8px !important; 
+    }
+    
+    .tarjeta-exhibicion { 
+        padding: 8px !important; 
+    }
+    
+    .imagen-recuadro { 
+        height: 100px !important; 
+    }
+}
