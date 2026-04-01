@@ -110,7 +110,7 @@ const catalogoProductos = {
         enStock: true,
         fotos: ["img/IMGcatalogo/1 Thermo King.png", "img/IMGcatalogo/2 Thermo King.png", "img/IMGcatalogo/3 Thermo King.png", "img/IMGcatalogo/4 Thermo King.png"],
         specs: { "NÚMERO DE DIENTES": "9", "GIRO": "CW DERECHO - HORARIO", "VOLTS": "12V", "DATOS EXTRAS": "2.0 KW", "SERIE": "OSGR", "SISTEMA OEM": "HITACHI", "LESTER": "18067" }
-    }
+    },
 };
 
 function renderizarCatalogo(productos) {
